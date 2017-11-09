@@ -3,7 +3,7 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require './models'
 
-enable :session
+enable :sessions
 
 def current_user
   @user ||= User.find_by_id(session[:user_id])
@@ -29,8 +29,8 @@ end
 
 
 get '/profile' do
-  @user = params[:user_id]
-    erb :profile
+
+  erb :profile
 end
 
 get '/logout' do

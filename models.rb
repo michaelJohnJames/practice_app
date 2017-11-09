@@ -6,4 +6,5 @@
 
 # e.g.
 class User < ActiveRecord::Base
+
 end
