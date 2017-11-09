@@ -3,26 +3,52 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require './models'
 
+enable :session
+
 # Database configuration
 set :database, "sqlite3:development.sqlite3"
 
+
+def current_user
+  @user ||= User.find_by_id(session[:user_id])
+end
+
+def authenticate_user
+  redirect '/' if current_user.nil?
+end
+
 # Define routes below
 get '/' do
-  erb :index
+  if current_user
+    redirect '/posts'
+  else
+    erb :index
+  end
+end
+
+get '/logout' do
+  session.clear
+  redirect '/'
 end
 
 
 post '/login' do
   username = params[:username]
-  user = User.find_by_or_create(username: username)
-  session[:user.id] = user.id
-  redirect '/profile'
+  user = User.find_or_create_by(username: username)
+  session[:user_id] = user.id
+  redirect '/posts'
+end
+
+get '/posts/new' do
+
 end
 
 
-get '/profile' do
-  erb :profile
+get '/posts' do
+  authenticate_user
+  erb :posts
 end
+
 
 # Providing model information to the view
 # requires an instance variable (prefixing with the '@' symbol)
