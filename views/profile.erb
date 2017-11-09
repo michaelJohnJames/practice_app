@@ -3,6 +3,10 @@
 <h1>Welcome <%= @user.username %> </h1>
 <p>Your user id is <%=@user.id %></p>
 
+<p> Here are your posts: </p>
+
+<%= @user.post %>
 
 
-<a href="/new">Post something new</a>
+
+<a href="posts/new">Post something new</a>

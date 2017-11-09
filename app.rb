@@ -27,7 +27,6 @@ get '/' do
 end
 
 
-
 get '/profile' do
 authenticate_user
   erb :profile
@@ -39,8 +38,13 @@ get '/logout' do
 end
 
 
-get '/new' do
-  erb :new
+get '/posts/new' do
+  erb :'posts/new'
+end
+
+post '/profile' do
+  post = User.post.create_by(post: params[:post])
+  redirect '/profile'
 end
 
 
