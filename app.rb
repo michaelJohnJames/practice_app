@@ -29,7 +29,7 @@ end
 
 
 get '/profile' do
-
+authenticate_user
   erb :profile
 end
 
@@ -46,8 +46,8 @@ end
 
 post '/login' do
 #  username = params[:username].downcase
-  #user = User.find_or_create_by(username: username)
-  #session[:user_id] = user.id
+  user = User.find_or_create_by(username: params[:username])
+  session[:user_id] = user.id
   redirect "/profile"
 end
 
