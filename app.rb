@@ -5,10 +5,6 @@ require './models'
 
 enable :session
 
-# Database configuration
-set :database, "sqlite3:development.sqlite3"
-
-
 def current_user
   @user ||= User.find_by_id(session[:user_id])
 end
@@ -17,13 +13,24 @@ def authenticate_user
   redirect '/' if current_user.nil?
 end
 
+# Database configuration
+set :database, "sqlite3:development.sqlite3"
+
+
 # Define routes below
 get '/' do
   if current_user
-    redirect '/posts'
+    redirect '/profile'
   else
     erb :index
   end
+end
+
+
+
+get '/profile' do
+  @user = params[:user_id]
+    erb :profile
 end
 
 get '/logout' do
@@ -32,21 +39,16 @@ get '/logout' do
 end
 
 
+get '/new' do
+  erb :new
+end
+
+
 post '/login' do
-  username = params[:username]
-  user = User.find_or_create_by(username: username)
-  session[:user_id] = user.id
-  redirect '/posts'
-end
-
-get '/posts/new' do
-
-end
-
-
-get '/posts' do
-  authenticate_user
-  erb :posts
+#  username = params[:username].downcase
+  #user = User.find_or_create_by(username: username)
+  #session[:user_id] = user.id
+  redirect "/profile"
 end
 
 
