@@ -1,10 +1,13 @@
 <h1>Make a new post here</h1>
 
 <form class="new-post" action="/profile" method="post">
-  <label for="title">Post</label>
+  <input type="text" name="post_title" placeholder="Post headline">
   <br>
-  <textarea rows="8" cols="80" placeholder="What's on your mind?"></textarea>
+  <br>
+  <textarea rows="8" cols="80" name="post" placeholder="What's on your mind?"></textarea>
+  <br>
   <input type="submit" value="Post">
 </form>
-
+<br>
+<br>
 <a href="/profile">Back</a>

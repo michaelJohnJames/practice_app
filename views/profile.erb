@@ -3,9 +3,19 @@
 <h1>Welcome <%= @user.username %> </h1>
 <p>Your user id is <%=@user.id %></p>
 
-<p> Here are your posts: </p>
+<section>
+  <h3>Here are your posts</h3>
+  <ul>
 
-<%= @user.post %>
+    <% @post.posts.each do |post| %>
+      <li>
+        <%= @post.post %>
+      </li>
+      <% end %>
+
+  </ul>
+
+</section>
 
 
 

@@ -39,11 +39,21 @@ end
 
 
 get '/posts/new' do
+  @post = Post.find_by(params[:id])
+  @title = Post.where(params[:'post_title'])
   erb :'posts/new'
 end
 
+get '/profile/:id' do
+  authenticate_user
+  @post = Post.find_by(params[:id])
+  @title = Post.find_by(params[:'post_title'])
+end
+
 post '/profile' do
-  post = User.post.create_by(post: params[:post])
+  authenticate_user
+  @user.posts.create(post: params[:post])
+  @user.posts.create(post_title: params[:'posttitle'])
   redirect '/profile'
 end
 
